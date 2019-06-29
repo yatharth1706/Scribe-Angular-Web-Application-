@@ -6,6 +6,8 @@ import { MyblogsComponent } from './myblogs/myblogs.component';
 import { YashGuard } from './yash.guard';
 import {HomeComponent} from './home/home.component';
 import {ViewComponent} from './view/view.component';
+import { ProfileComponent } from './profile/profile.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 const routes: Routes = [{
   path: '', component: HomeComponent
@@ -14,6 +16,8 @@ const routes: Routes = [{
 },
 { path:'signup', component: SignupComponent},
 {path: 'myBlogs', component: MyblogsComponent, canActivate: [YashGuard]},
+{path: 'profile/:id', component: ProfileComponent},
+{path: 'edit-profile/:id', component: EditProfileComponent},
 {path: 'view/:postId', component: ViewComponent },
 {path:'**', redirectTo: 'login'}];
 

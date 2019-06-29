@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DisplayPostComponent } from './display-post/display-post.component';
 import { ViewComponent } from './view/view.component';
 import { CommentsComponent } from './comments/comments.component';
+import { ProfileComponent } from './profile/profile.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 
@@ -43,7 +45,9 @@ import { CommentsComponent } from './comments/comments.component';
     PostsComponent,
     DisplayPostComponent,
     ViewComponent,
-    CommentsComponent
+    CommentsComponent,
+    ProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-
+import {AuthService} from '../auth.service'
 
 @Component({
   selector: 'app-signup',
@@ -13,10 +13,11 @@ import 'firebase/auth';
 
 export class SignupComponent implements OnInit {
  
-
+  message: string= "";
+  userError: any;
   myForm: FormGroup;
 
-  constructor(public fb: FormBuilder) { 
+  constructor(public fb: FormBuilder,public authService: AuthService) { 
     this.myForm = this.fb.group({
       firstName: ['',[Validators.required]],
       lastName: ['' ,[Validators.required]],
@@ -54,16 +55,26 @@ export class SignupComponent implements OnInit {
     let firstName: string= myForm.value.firstName;
     let lastName: string= myForm.value.lastName;
 
-    let message: string= "";
-    let userError: any;
+    
 
-    firebase.auth().createUserWithEmailAndPassword(email,password).then(()=>{
+    this.authService.signup(email,password, firstName,lastName).then((user: any)=>{
       
-        message="You have signed up successfully! Please sign in !"
+        firebase.firestore().collection("users").doc(user.uid).set({
+          firstName: myForm.value.firstName,
+          lastName: myForm.value.lastName,
+          email: myForm.value.email,
+          photoURL: user.photoURL,
+          interests: "",
+          bio: "",
+          hobbies: ""
+        }).then(()=>{
+          this.message="You have signed up successfully! Please sign in !"
+        })
+        
     
     }).catch((error)=>{
       console.log(error);
-      userError=error;
+      this.userError=error;
     })
   }
 
