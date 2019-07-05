@@ -18,7 +18,7 @@ import { ViewComponent } from './view/view.component';
 import { CommentsComponent } from './comments/comments.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-
+import { CreateComponent } from './create/create.component';
 
 
   // Your web app's Firebase configuration
@@ -47,7 +47,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     ViewComponent,
     CommentsComponent,
     ProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule,

@@ -19,7 +19,7 @@
         <button class="btn btn-outline-light px-5" routerLink="/login">Login</button>
       </li>
       <li class="nav-item right" *ngIf="loggedIn">
-        <a routerLink="/" class="nav-link">My Profile</a>
+        <a [routerLink]="'profile/' + user.uid" class="nav-link">My Profile</a>
       </li>
       <li class="nav-item right" *ngIf="loggedIn">
           <a routerLink="/" class="nav-link" (click)="logout()">Log Out</a>

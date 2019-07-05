@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 
 @Component({
   selector: 'app-profile',
@@ -6,10 +9,43 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  // @Input('post') post: any;
+  constructor(public activatedRoute: ActivatedRoute) { 
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
 
-  constructor() { }
+    this.getProfile(id);
+    this.getUsersPosts(id);
+  }
 
   ngOnInit() {
   }
+  user: any = {};
+  posts: any[] = [];
 
+  getProfile(id: string){
+
+    
+
+    firebase.firestore().collection("users").doc(id).get().then((documentSnapshot) => {
+
+      this.user = documentSnapshot.data();
+      this.user.displayName = this.user.firstName + " " + this.user.lastName;
+      this.user.id = documentSnapshot.id;
+      this.user.hobbies = this.user.hobbies.split(",");
+      console.log(this.user);
+
+    }).catch((error) => {
+      console.log(error);
+    })
+
+  }
+
+  getUsersPosts(id: string){
+    firebase.firestore().collection("posts")
+    .where("owner","==", id).get().then((data)=>{
+      
+      this.posts = data.docs;
+
+    })
+  }
 }

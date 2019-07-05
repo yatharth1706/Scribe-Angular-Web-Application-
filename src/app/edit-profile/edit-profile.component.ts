@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -9,6 +9,7 @@ import 'firebase/auth';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
+  @Input('post') post: any;
   user: any = {};
   message: string;
   constructor() { 
@@ -45,8 +46,8 @@ export class EditProfileComponent implements OnInit {
 
       let userId = firebase.auth().currentUser.uid;
       firebase.firestore().collection("users").doc(userId).update({
-        first_name: this.user.displayName.split(' ')[0],
-        last_name: this.user.displayName.split(' ')[1],
+        firstName: this.user.displayName.split(' ')[0],
+        lastName: this.user.displayName.split(' ')[1],
         hobbies: this.user.hobbies,
         interests: this.user.interests,
         bio: this.user.bio
